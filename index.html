@@ -1,0 +1,1518 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <meta name="description" content="FilmesFlix - Assista filmes, séries e animes onde e quando quiser." />
+    <meta name="keywords" content="streaming, filmes, séries, animes" />
+    <meta property="og:title" content="FilmesFlix - Streaming de Filmes, Séries e Animes" />
+    <meta property="og:description"
+        content="Filmes, séries e animes ilimitados. Assista onde quiser. Cancele quando quiser." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://filmesflix.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>FilmesFlix - Streaming de Filmes, Séries e Animes</title>
+    <style>
+        /* CSS Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Variáveis */
+        :root {
+            --primary: #E50914;
+            --secondary: #0B0B0B;
+            --dark: #141414;
+            --gray: #8C8C8C;
+            --light-gray: #333;
+            --white: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--secondary);
+            color: var(--white);
+        }
+
+        /* Estilos do login */
+        .login-bg {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                url('https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&h=1080');
+            background-size: cover;
+            background-position: center;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .card {
+            background-color: rgba(0, 0, 0, 0.85);
+            border-radius: 4px;
+            padding: 2rem;
+            width: 100%;
+            max-width: 450px;
+        }
+
+        .form-input {
+            width: 100%;
+            background-color: #333;
+            border: none;
+            border-radius: 4px;
+            height: 50px;
+            color: white;
+            padding: 0 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .form-input:focus {
+            outline: none;
+            background-color: #454545;
+        }
+
+        .form-error {
+            color: #E87C03;
+            margin-top: -0.5rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+        }
+
+        .btn {
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn-primary {
+            background-color: #E50914;
+            color: white;
+            width: 100%;
+            padding: 0.875rem;
+            font-size: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .btn-primary:hover {
+            background-color: #F40612;
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: white;
+            padding: 0.5rem;
+        }
+
+        .logo {
+            color: #E50914;
+            font-size: 1.75rem;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .text-primary {
+            color: var(--primary);
+        }
+
+        .text-gray {
+            color: var(--gray);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Estilos da welcome page */
+        .welcome-bg {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
+                url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&h=1080');
+            background-size: cover;
+            background-position: center;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .main-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+            text-align: center;
+        }
+
+        .footer {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 2rem;
+            margin-top: auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer h3 {
+            color: #8C8C8C;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .footer ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer a {
+            color: #8C8C8C;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Estilos do catálogo */
+        .catalog-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .featured-banner {
+            position: relative;
+            height: 60vh;
+            min-height: 400px;
+            max-height: 600px;
+            margin-bottom: 2rem;
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+
+        .featured-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .featured-gradient {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(0, 0, 0, 0.8) 40%, transparent);
+        }
+
+        .featured-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            padding: 2rem;
+            width: 50%;
+        }
+
+        .categories-bar {
+            display: flex;
+            overflow-x: auto;
+            padding: 1rem 0;
+            margin-bottom: 1rem;
+            scrollbar-width: none;
+        }
+
+        .categories-bar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category-btn {
+            white-space: nowrap;
+            padding: 0.5rem 1rem;
+            background-color: #333;
+            border: none;
+            border-radius: 20px;
+            color: white;
+            margin-right: 0.5rem;
+            cursor: pointer;
+        }
+
+        .category-btn.active {
+            background-color: #E50914;
+        }
+
+        .slider-section {
+            margin-bottom: 3rem;
+        }
+
+        .slider-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .slider {
+            position: relative;
+            overflow-x: auto;
+            white-space: nowrap;
+            scrollbar-width: none;
+        }
+
+        .slider::-webkit-scrollbar {
+            display: none;
+        }
+
+        .content-items {
+            display: inline-flex;
+            gap: 1rem;
+            padding: 1rem 0;
+        }
+
+        .content-card {
+            position: relative;
+            width: 200px;
+            height: 300px;
+            overflow: hidden;
+            border-radius: 4px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .content-card:hover {
+            transform: scale(1.05);
+            z-index: 10;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        .content-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .content-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+            padding: 1rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .content-card:hover .content-info {
+            opacity: 1;
+        }
+
+        .search-container {
+            background-color: var(--dark);
+            padding: 1rem;
+            border-bottom: 1px solid #333;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background-color: #333;
+            border-radius: 4px;
+            padding: 0 1rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .search-input {
+            background: transparent;
+            border: none;
+            height: 40px;
+            color: white;
+            width: 100%;
+            padding: 0 0.5rem;
+        }
+
+        .search-input:focus {
+            outline: none;
+        }
+
+        .search-icon {
+            color: #8C8C8C;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover {
+            color: #E50914;
+        }
+
+        .profile-dropdown {
+            position: relative;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            right: 0;
+            top: 100%;
+            background-color: var(--dark);
+            border: 1px solid #333;
+            border-radius: 4px;
+            width: 200px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            z-index: 100;
+            display: none;
+        }
+
+        .profile-dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-item {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid #333;
+        }
+
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-link {
+            color: white;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-link:hover {
+            color: #E50914;
+        }
+
+        .search-results {
+            padding: 2rem 0;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .featured-content {
+                width: 100%;
+                padding: 1rem;
+            }
+
+            .featured-gradient {
+                background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-banner {
+                height: 50vh;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script>
+        // Definições de Dados
+        // Dados de usuários (em uma aplicação real, isso estaria em um banco de dados seguro)
+        const DEFAULT_USERS = [
+            { id: 1, username: 'Admin', password: 'admin123', name: 'Demo User', email: 'filmesflix@gmail.com' }
+        ];
+
+        // Catálogo de conteúdo
+        const catalog = {
+            trending: [
+                { id: 1, title: "Matrix Resurrections", year: "2021", categories: ["Ação", "Sci-Fi"], imageUrl: "https://beam-images.warnermediacdn.com/BEAM_LWM_DELIVERABLES/59f8d3bb-5c45-431d-80cd-331eafac0b81/de639670577d343d0cc644c38b11f832966d1f56.jpg?host=wbd-images.prod-vod.h264.io&partner=beamcomhttps://videos.openai.com/vg-assets/assets%2Ftask_01jv2y1dn1f9yva0s458sp78dh%2F1747076657_img_1.webp?st=2025-05-12T17%3A51%3A30Z&se=2025-05-18T18%3A51%3A30Z&sks=b&skt=2025-05-12T17%3A51%3A30Z&ske=2025-05-18T18%3A51%3A30Z&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skoid=8ebb0df1-a278-4e2e-9c20-f2d373479b3a&skv=2019-02-02&sv=2018-11-09&sr=b&sp=r&spr=https%2Chttp&sig=dYvhygvtistTb01u%2BQCgbh%2B30KD4XKiAM7PjFJGRuaU%3D&az=oaivgprodscus" },
+                { id: 2, title: "A Quiet Place", year: "2018", categories: ["Terror", "Suspense"], imageUrl: "https://upload.wikimedia.org/wikipedia/en/a/a0/A_Quiet_Place_film_poster.png" },
+                { id: 3, title: "Soul", year: "2020", categories: ["Animação", "Comédia"], imageUrl: "https://lumiere-a.akamaihd.net/v1/images/poster_66814911.png" },
+                { id: 4, title: "The Witcher", year: "2019", categories: ["Fantasia", "Drama"], imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTw1-y3CidOjAoN7M9N5aioBr3V0l_3fTjGqg&s" },
+                { id: 5, title: "Peaky Blinders", year: "2013", categories: ["Crime", "Drama"], imageUrl: "https://imusic.b-cdn.net/images/item/original/825/5051561037825.jpg?peaky-blinders-2013-peaky-blinders-dvd&class=scaled&v=1382308494" }
+            ],
+            animes: [
+                { id: 6, title: "Demon Slayer", year: "2019", categories: ["Ação", "Fantasia"], imageUrl: "https://videos.openai.com/vg-assets/assets%2Ftask_01jv37stvke4krs5933vp3jwr7%2F1747086902_img_0.webp?st=2025-05-12T20%3A20%3A15Z&se=2025-05-18T21%3A20%3A15Z&sks=b&skt=2025-05-12T20%3A20%3A15Z&ske=2025-05-18T21%3A20%3A15Z&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skoid=8ebb0df1-a278-4e2e-9c20-f2d373479b3a&skv=2019-02-02&sv=2018-11-09&sr=b&sp=r&spr=https%2Chttp&sig=gV0jUKsHDcFX0X850tvHQc9OrVxK14jRDuB%2BU6LkitU%3D&az=oaivgprodscus" },
+                { id: 7, title: "Attack on Titan", year: "2013", categories: ["Ação", "Drama"], imageUrl: "https://img.elo7.com.br/product/zoom/2C15140/big-poster-anime-attack-on-titan-lo004-tamanho-90x60-cm-attack-on-titan.jpg" },
+                { id: 8, title: "My Hero Academia", year: "2016", categories: ["Ação", "Aventura"], imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_DJMm1NVoRG5c7bWJg0qWCPokG-ouCtUNKQ&s" },
+                { id: 9, title: "Naruto Shippuden", year: "2007", categories: ["Ação", "Aventura"], imageUrl: "https://m.media-amazon.com/images/M/MV5BNTk3MDA1ZjAtNTRhYS00YzNiLTgwOGEtYWRmYTQ3NjA0NTAwXkEyXkFqcGc@._V1_.jpg" },
+                { id: 10, title: "One Punch Man", year: "2015", categories: ["Ação", "Comédia"], imageUrl: "https://imusic.b-cdn.net/images/item/original/945/5022366714945.jpg?one-punch-man-season-1-epis-2020-one-punch-man-season-1-epis-dvd&class=scaled&v=1578997850" }
+            ],
+            newReleases: [
+                { id: 11, title: "Dune", year: "2021", categories: ["Sci-Fi", "Aventura"], imageUrl: "https://images.justwatch.com/poster/303412080/s718/dune.jpg" },
+                { id: 12, title: "Spider-Man: No Way Home", year: "2021", categories: ["Ação", "Ficção científica"], imageUrl: "https://upload.wikimedia.org/wikipedia/pt/thumb/0/00/Spider-Man_No_Way_Home_poster.jpg/250px-Spider-Man_No_Way_Home_poster.jpg" },
+                { id: 13, title: "Thor: Amor e Trovão", year: "2022", categories: ["Ação", "Aventura"], imageUrl: "https://lumiere-a.akamaihd.net/v1/images/cg_disneyplus_thorloveandthunder_mobile_5ccfe1d6.jpeg?region=192,0,640,640" },
+                { id: 14, title: "The Power of the Dog", year: "2021", categories: ["Drama", "Western"], imageUrl: "data:image/jpeg;base64,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" },
+                { id: 15, title: "Shazam", year: "2019", categories: ["Ação", "Comedia"], imageUrl: "https://m.media-amazon.com/images/I/91jQHUaeY0L._AC_UF894,1000_QL80_.jpg" }
+            ],
+            movies: [
+                { id: 16, title: "Velozes e Furiosos 7", year: "2015", categories: ["Ação"], imageUrl: "https://www.clickriomafra.com.br/wp-content/uploads/2016/02/18/Filme-Velozes-Furiosos-7-est%C3%A1-em-cartaz-no-Cine-Semin%C3%A1rio.jpg" },
+                { id: 17, title: "Riddick 3", year: "2013", categories: ["Ação/Ficção científica"], imageUrl: "https://br.web.img3.acsta.net/pictures/210/239/21023959_20130801155447562.jpg" },
+                { id: 18, title: "Anjos da Noite: A Rebelião", year: "2009", categories: ["Ação", "Fantasia"], imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2BYV5zyCna-0YB25lEw9t_yiu3PzUi5zKhQ&s" },
+                { id: 19, title: "The Dark Knight", year: "2008", categories: ["Ação", "Crime"], imageUrl: "https://m.media-amazon.com/images/M/MV5BMjIzMGU0MDQtNDcyOS00MmEyLTg3MWMtODE4YWI1ZGZlMTllXkEyXkFqcGc@._V1_.jpg" },
+                { id: 20, title: "The Lord of the Rings", year: "2001", categories: ["Aventura", "Fantasia"], imageUrl: "https://upload.wikimedia.org/wikipedia/pt/thumb/3/38/Lord_of_the_Rings_Fellowship_of_the_Ring.jpg/250px-Lord_of_the_Rings_Fellowship_of_the_Ring.jpg" }
+            ]
+        };
+
+        // Variáveis de estado
+        let currentUser = null;
+        let currentPage = 'auth';
+        let currentCategory = 'All';
+        let searchResults = [];
+        let isSearching = false;
+
+        // Funções de Autenticação
+        const USERS_KEY = 'filmesflix_users';
+        const USER_DATA_KEY = 'filmesflix_user_data';
+
+        // Inicializar usuários no localStorage
+        function initUsers() {
+            if (!localStorage.getItem(USERS_KEY)) {
+                localStorage.setItem(USERS_KEY, JSON.stringify(DEFAULT_USERS));
+            }
+        }
+
+        // Obter todos os usuários
+        function getUsers() {
+            try {
+                const usersJson = localStorage.getItem(USERS_KEY);
+                return usersJson ? JSON.parse(usersJson) : DEFAULT_USERS;
+            } catch (error) {
+                console.error('Erro ao obter usuários:', error);
+                return DEFAULT_USERS;
+            }
+        }
+
+        // Salvar usuários
+        function saveUsers(users) {
+            localStorage.setItem(USERS_KEY, JSON.stringify(users));
+        }
+
+        // Login
+        function loginUser(username, password) {
+            const users = getUsers();
+            const user = users.find(u => u.username === username && u.password === password);
+
+            if (user) {
+                localStorage.setItem(USER_DATA_KEY, JSON.stringify(user));
+                currentUser = user;
+                return user;
+            }
+
+            return null;
+        }
+
+        // Verificar usuário atual
+        function getCurrentUser() {
+            try {
+                const userJson = localStorage.getItem(USER_DATA_KEY);
+                if (userJson) {
+                    currentUser = JSON.parse(userJson);
+                    return currentUser;
+                }
+                return null;
+            } catch (error) {
+                console.error('Erro ao obter usuário atual:', error);
+                return null;
+            }
+        }
+
+        // Registrar novo usuário
+        function registerUser(userData) {
+            const users = getUsers();
+
+            // Verificar se o nome de usuário já existe
+            if (users.some(u => u.username === userData.username)) {
+                return null;
+            }
+
+            // Criar novo usuário com ID
+            const newUser = {
+                ...userData,
+                id: users.length > 0 ? Math.max(...users.map(u => u.id)) + 1 : 1
+            };
+
+            // Adicionar ao array e salvar
+            const updatedUsers = [...users, newUser];
+            saveUsers(updatedUsers);
+
+            // Auto login
+            localStorage.setItem(USER_DATA_KEY, JSON.stringify(newUser));
+            currentUser = newUser;
+
+            return newUser;
+        }
+
+        // Logout
+        function logoutUser() {
+            localStorage.removeItem(USER_DATA_KEY);
+            currentUser = null;
+        }
+
+        // Solicitar redefinição de senha
+        function requestPasswordReset(email) {
+            const users = getUsers();
+            return users.some(u => u.email === email);
+        }
+
+        // Validar formato de email
+        function isValidEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        // Funções para catálogo
+        // Buscar conteúdo
+        function searchContent(searchTerm) {
+            if (!searchTerm) return [];
+
+            const lowerSearchTerm = searchTerm.toLowerCase();
+            const results = [];
+
+            for (const categoryName in catalog) {
+                const categoryItems = catalog[categoryName];
+                const matchingItems = categoryItems.filter(item =>
+                    item.title.toLowerCase().includes(lowerSearchTerm) ||
+                    item.categories.some(cat => cat.toLowerCase().includes(lowerSearchTerm))
+                );
+
+                results.push(...matchingItems);
+            }
+
+            return results;
+        }
+
+        // Obter conteúdo por categoria
+        function getContentByCategory(category) {
+            if (category === 'All') {
+                return [
+                    ...catalog.trending,
+                    ...catalog.animes,
+                    ...catalog.newReleases,
+                    ...catalog.movies
+                ];
+            }
+
+            return catalog[category] || [];
+        }
+
+        // Obter um item aleatório em destaque
+        function getRandomFeatured() {
+            const allPossibleFeatures = [...catalog.newReleases, ...catalog.trending];
+            const randomIndex = Math.floor(Math.random() * allPossibleFeatures.length);
+            return allPossibleFeatures[randomIndex];
+        }
+
+        // Funções de Renderização
+
+        // Renderizar aplicação com base no estado atual
+        function renderApp() {
+            const app = document.getElementById('app');
+
+            // Verificar se há um usuário logado
+            if (currentUser) {
+                if (currentPage === 'welcome') {
+                    renderWelcomePage();
+                } else if (currentPage === 'catalog') {
+                    renderCatalogPage();
+                } else {
+                    // Redirecionamento padrão para welcome
+                    currentPage = 'welcome';
+                    renderWelcomePage();
+                }
+            } else {
+                // Se não há usuário, mostrar página de autenticação
+                currentPage = 'auth';
+                renderAuthPage();
+            }
+        }
+
+        // Renderizar página de login/cadastro
+        function renderAuthPage() {
+            const app = document.getElementById('app');
+            app.innerHTML = `
+          <div class="login-bg">
+            <div class="card">
+              <div class="text-center">
+                <h1 class="text-primary logo">FILMESFLIX</h1>
+                <h2 id="auth-title" style="font-size: 1.5rem; margin: 1rem 0;">Entrar</h2>
+              </div>
+              
+              <div id="login-form">
+                <form id="login-form-el">
+                  <input type="text" id="login-username" class="form-input" placeholder="Nome de usuário" required>
+                  <p id="login-username-error" class="form-error hidden"></p>
+                  
+                  <input type="password" id="login-password" class="form-input" placeholder="Senha" required>
+                  <p id="login-password-error" class="form-error hidden"></p>
+                  
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <div>
+                      <input type="checkbox" id="remember-me" style="margin-right: 0.5rem;">
+                      <label for="remember-me" class="text-gray">Lembrar de mim</label>
+                    </div>
+                    
+                    <button type="button" id="forgot-pw-link" class="text-gray" style="background: none; border: none; cursor: pointer;">
+                      Esqueceu a senha?
+                    </button>
+                  </div>
+                  
+                  <button type="submit" class="btn btn-primary">Entrar</button>
+                  
+                  <div id="login-error" class="form-error hidden"></div>
+                </form>
+                
+                <div class="text-center" style="margin-top: 1rem;">
+                  <p class="text-gray">
+                    Novo por aqui? 
+                    <button type="button" id="show-register" class="text-primary" style="background: none; border: none; cursor: pointer;">
+                      Cadastre-se agora
+                    </button>
+                  </p>
+                </div>
+              </div>
+              
+              <div id="register-form" class="hidden">
+                <form id="register-form-el">
+                  <input type="text" id="register-name" class="form-input" placeholder="Nome completo" required>
+                  <p id="register-name-error" class="form-error hidden"></p>
+                  
+                  <input type="email" id="register-email" class="form-input" placeholder="Email" required>
+                  <p id="register-email-error" class="form-error hidden"></p>
+                  
+                  <input type="text" id="register-username" class="form-input" placeholder="Nome de usuário" required>
+                  <p id="register-username-error" class="form-error hidden"></p>
+                  
+                  <input type="password" id="register-password" class="form-input" placeholder="Senha" required>
+                  <p id="register-password-error" class="form-error hidden"></p>
+                  
+                  <input type="password" id="register-confirm-password" class="form-input" placeholder="Confirmar senha" required>
+                  <p id="register-confirm-error" class="form-error hidden"></p>
+                  
+                  <button type="submit" class="btn btn-primary">Cadastrar</button>
+                  
+                  <div id="register-error" class="form-error hidden"></div>
+                </form>
+                
+                <div class="text-center" style="margin-top: 1rem;">
+                  <p class="text-gray">
+                    Já tem uma conta? 
+                    <button type="button" id="show-login" class="text-primary" style="background: none; border: none; cursor: pointer;">
+                      Faça login
+                    </button>
+                  </p>
+                </div>
+              </div>
+              
+              <div id="forgot-password-form" class="hidden">
+                <form id="forgot-form-el">
+                  <input type="email" id="forgot-email" class="form-input" placeholder="Email" required>
+                  <p id="forgot-email-error" class="form-error hidden"></p>
+                  
+                  <button type="submit" class="btn btn-primary">Recuperar senha</button>
+                  
+                  <div id="forgot-error" class="form-error hidden"></div>
+                  <div id="forgot-success" class="hidden" style="background-color: #008000; color: white; padding: 0.5rem; border-radius: 4px; margin-top: 0.5rem;"></div>
+                </form>
+                
+                <div class="text-center" style="margin-top: 1rem;">
+                  <p class="text-gray">
+                    Lembrou sua senha? 
+                    <button type="button" id="back-to-login" class="text-primary" style="background: none; border: none; cursor: pointer;">
+                      Voltar para login
+                    </button>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+
+            setupAuthEvents();
+        }
+
+        // Configurar eventos da página de autenticação
+        function setupAuthEvents() {
+            // Alternar entre formulários
+            const showRegisterBtn = document.getElementById('show-register');
+            const showLoginBtn = document.getElementById('show-login');
+            const forgotPwLink = document.getElementById('forgot-pw-link');
+            const backToLoginBtn = document.getElementById('back-to-login');
+
+            const loginForm = document.getElementById('login-form');
+            const registerForm = document.getElementById('register-form');
+            const forgotForm = document.getElementById('forgot-password-form');
+            const authTitle = document.getElementById('auth-title');
+
+            if (showRegisterBtn) {
+                showRegisterBtn.addEventListener('click', () => {
+                    loginForm.classList.add('hidden');
+                    registerForm.classList.remove('hidden');
+                    forgotForm.classList.add('hidden');
+                    authTitle.textContent = 'Cadastro';
+                });
+            }
+
+            if (showLoginBtn) {
+                showLoginBtn.addEventListener('click', () => {
+                    loginForm.classList.remove('hidden');
+                    registerForm.classList.add('hidden');
+                    forgotForm.classList.add('hidden');
+                    authTitle.textContent = 'Entrar';
+                });
+            }
+
+            if (forgotPwLink) {
+                forgotPwLink.addEventListener('click', () => {
+                    loginForm.classList.add('hidden');
+                    registerForm.classList.add('hidden');
+                    forgotForm.classList.remove('hidden');
+                    authTitle.textContent = 'Recuperar Senha';
+                });
+            }
+
+            if (backToLoginBtn) {
+                backToLoginBtn.addEventListener('click', () => {
+                    loginForm.classList.remove('hidden');
+                    registerForm.classList.add('hidden');
+                    forgotForm.classList.add('hidden');
+                    authTitle.textContent = 'Entrar';
+                });
+            }
+
+            // Formulário de login
+            const loginFormEl = document.getElementById('login-form-el');
+            if (loginFormEl) {
+                loginFormEl.addEventListener('submit', (e) => {
+                    e.preventDefault();
+
+                    const username = document.getElementById('login-username').value;
+                    const password = document.getElementById('login-password').value;
+
+                    // Validação básica
+                    let isValid = true;
+
+                    if (!username) {
+                        document.getElementById('login-username-error').textContent = 'Digite seu nome de usuário';
+                        document.getElementById('login-username-error').classList.remove('hidden');
+                        isValid = false;
+                    } else {
+                        document.getElementById('login-username-error').classList.add('hidden');
+                    }
+
+                    if (!password) {
+                        document.getElementById('login-password-error').textContent = 'Digite sua senha';
+                        document.getElementById('login-password-error').classList.remove('hidden');
+                        isValid = false;
+                    } else {
+                        document.getElementById('login-password-error').classList.add('hidden');
+                    }
+
+                    if (!isValid) return;
+
+                    // Tentar login
+                    const user = loginUser(username, password);
+
+                    if (user) {
+                        currentPage = 'welcome';
+                        renderApp();
+                    } else {
+                        const errorEl = document.getElementById('login-error');
+                        errorEl.textContent = 'Nome de usuário ou senha incorretos';
+                        errorEl.classList.remove('hidden');
+                    }
+                });
+            }
+
+            // Formulário de cadastro
+            const registerFormEl = document.getElementById('register-form-el');
+            if (registerFormEl) {
+                registerFormEl.addEventListener('submit', (e) => {
+                    e.preventDefault();
+
+                    const name = document.getElementById('register-name').value;
+                    const email = document.getElementById('register-email').value;
+                    const username = document.getElementById('register-username').value;
+                    const password = document.getElementById('register-password').value;
+                    const confirmPassword = document.getElementById('register-confirm-password').value;
+
+                    // Validação
+                    let isValid = true;
+
+                    if (!name) {
+                        document.getElementById('register-name-error').textContent = 'Digite seu nome completo';
+                        document.getElementById('register-name-error').classList.remove('hidden');
+                        isValid = false;
+                    } else {
+                        document.getElementById('register-name-error').classList.add('hidden');
+                    }
+
+                    if (!email) {
+                        document.getElementById('register-email-error').textContent = 'Digite seu email';
+                        document.getElementById('register-email-error').classList.remove('hidden');
+                        isValid = false;
+                    } else if (!isValidEmail(email)) {
+                        document.getElementById('register-email-error').textContent = 'Email inválido';
+                        document.getElementById('register-email-error').classList.remove('hidden');
+                        isValid = false;
+                    } else {
+                        document.getElementById('register-email-error').classList.add('hidden');
+                    }
+
+                    if (!username) {
+                        document.getElementById('register-username-error').textContent = 'Digite um nome de usuário';
+                        document.getElementById('register-username-error').classList.remove('hidden');
+                        isValid = false;
+                    } else if (username.length < 3) {
+                        document.getElementById('register-username-error').textContent = 'Nome de usuário deve ter pelo menos 3 caracteres';
+                        document.getElementById('register-username-error').classList.remove('hidden');
+                        isValid = false;
+                    } else {
+                        document.getElementById('register-username-error').classList.add('hidden');
+                    }
+
+                    if (!password) {
+                        document.getElementById('register-password-error').textContent = 'Digite uma senha';
+                        document.getElementById('register-password-error').classList.remove('hidden');
+                        isValid = false;
+                    } else if (password.length < 6) {
+                        document.getElementById('register-password-error').textContent = 'Senha deve ter pelo menos 6 caracteres';
+                        document.getElementById('register-password-error').classList.remove('hidden');
+                        isValid = false;
+                    } else {
+                        document.getElementById('register-password-error').classList.add('hidden');
+                    }
+
+                    if (password !== confirmPassword) {
+                        document.getElementById('register-confirm-error').textContent = 'Senhas não coincidem';
+                        document.getElementById('register-confirm-error').classList.remove('hidden');
+                        isValid = false;
+                    } else {
+                        document.getElementById('register-confirm-error').classList.add('hidden');
+                    }
+
+                    if (!isValid) return;
+
+                    // Registrar usuário
+                    const newUser = registerUser({
+                        name,
+                        email,
+                        username,
+                        password
+                    });
+
+                    if (newUser) {
+                        currentPage = 'welcome';
+                        renderApp();
+                    } else {
+                        const errorEl = document.getElementById('register-error');
+                        errorEl.textContent = 'Nome de usuário já existe';
+                        errorEl.classList.remove('hidden');
+                    }
+                });
+            }
+
+            // Formulário de recuperação de senha
+            const forgotFormEl = document.getElementById('forgot-form-el');
+            if (forgotFormEl) {
+                forgotFormEl.addEventListener('submit', (e) => {
+                    e.preventDefault();
+
+                    const email = document.getElementById('forgot-email').value;
+
+                    // Validação
+                    let isValid = true;
+
+                    if (!email) {
+                        document.getElementById('forgot-email-error').textContent = 'Digite seu email';
+                        document.getElementById('forgot-email-error').classList.remove('hidden');
+                        isValid = false;
+                    } else if (!isValidEmail(email)) {
+                        document.getElementById('forgot-email-error').textContent = 'Email inválido';
+                        document.getElementById('forgot-email-error').classList.remove('hidden');
+                        isValid = false;
+                    } else {
+                        document.getElementById('forgot-email-error').classList.add('hidden');
+                    }
+
+                    if (!isValid) return;
+
+                    // Tentar recuperação
+                    const success = requestPasswordReset(email);
+
+                    if (success) {
+                        document.getElementById('forgot-success').textContent = 'Instruções de recuperação enviadas para seu email';
+                        document.getElementById('forgot-success').classList.remove('hidden');
+                        document.getElementById('forgot-error').classList.add('hidden');
+                    } else {
+                        document.getElementById('forgot-error').textContent = 'Email não encontrado';
+                        document.getElementById('forgot-error').classList.remove('hidden');
+                        document.getElementById('forgot-success').classList.add('hidden');
+                    }
+                });
+            }
+        }
+
+        // Renderizar página de boas-vindas
+        function renderWelcomePage() {
+            const app = document.getElementById('app');
+            const audioUrl = 'https://cdn.pixabay.com/download/audio/2022/03/15/audio_59a93543f0.mp3?filename=netflix-opening-sound-logo-144738.mp3';
+
+            app.innerHTML = `
+          <div class="welcome-bg">
+            <header class="header">
+              <h1 class="logo">FILMESFLIX</h1>
+              <div class="profile-dropdown">
+                <button id="profile-button" class="btn-ghost">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                  </svg>
+                </button>
+                <div class="dropdown-menu">
+                  <div class="dropdown-item">
+                    <span>${currentUser.name}</span>
+                  </div>
+                  <div class="dropdown-item">
+                    <a href="#" class="dropdown-link">Perfil</a>
+                  </div>
+                  <div class="dropdown-item">
+                    <a href="#" class="dropdown-link">Configurações</a>
+                  </div>
+                  <div class="dropdown-item">
+                    <a href="#" id="logout-btn" class="dropdown-link" style="color: #E50914;">Sair</a>
+                  </div>
+                </div>
+              </div>
+            </header>
+            
+            <main class="main-content">
+              <div style="max-width: 800px;">
+                <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Bem-vindo ao FilmesFlix!</h2>
+                <p style="font-size: 1.25rem; margin-bottom: 1rem;">Filmes, séries e animes ilimitados.</p>
+                <p style="font-size: 1rem; margin-bottom: 2rem;">Assista onde quiser. Cancele quando quiser.</p>
+                <button id="explore-catalog" class="btn btn-primary" style="display: inline-flex; align-items: center; padding: 0.75rem 1.5rem; margin: 0 auto;">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 0.5rem;">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polygon points="10 8 16 12 10 16 10 8"></polygon>
+                  </svg>
+                  Explorar Catálogo
+                </button>
+              </div>
+              
+              <div style="margin-top: 2rem; width: 100%; max-width: 500px;">
+                <p style="font-size: 0.875rem; margin-bottom: 0.5rem;">Áudio de introdução:</p>
+                <audio id="intro-audio" controls autoplay style="width: 100%;">
+                  <source src="${audioUrl}" type="audio/mpeg">
+                  Seu navegador não suporta o elemento de áudio.
+                </audio>
+              </div>
+            </main>
+            
+            <footer class="footer">
+              <div class="footer-grid">
+                <div>
+                  <h3>FilmesFlix</h3>
+                  <ul>
+                    <li><a href="#">Sobre nós</a></li>
+                    <li><a href="#">Empregos</a></li>
+                    <li><a href="#">Termos de uso</a></li>
+                    <li><a href="#">Privacidade</a></li>
+                  </ul>
+                </div>
+                <div>
+                  <h3>Ajuda</h3>
+                  <ul>
+                    <li><a href="#">Perguntas frequentes</a></li>
+                    <li><a href="#">Centro de ajuda</a></li>
+                    <li><a href="#">Conta</a></li>
+                    <li><a href="#">Contato</a></li>
+                  </ul>
+                </div>
+                <div>
+                  <h3>Siga-nos</h3>
+                  <ul>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">YouTube</a></li>
+                  </ul>
+                </div>
+              </div>
+              <div style="margin-top: 2rem; text-align: center; font-size: 0.875rem; color: #8C8C8C;">
+                &copy; ${new Date().getFullYear()} FilmesFlix. Todos os direitos reservados.
+              </div>
+            </footer>
+          </div>
+        `;
+
+            // Configurar eventos
+            document.getElementById('explore-catalog').addEventListener('click', () => {
+                currentPage = 'catalog';
+                renderApp();
+            });
+
+            document.getElementById('logout-btn').addEventListener('click', (e) => {
+                e.preventDefault();
+                logoutUser();
+                renderApp();
+            });
+        }
+
+        // Renderizar página de catálogo
+        function renderCatalogPage() {
+            const app = document.getElementById('app');
+            const featured = getRandomFeatured();
+
+            app.innerHTML = `
+          <div style="min-height: 100vh; display: flex; flex-direction: column; background-color: var(--secondary);">
+            <header class="header" style="background-color: var(--dark);">
+              <div style="display: flex; align-items: center;">
+                <h1 class="logo">FILMESFLIX</h1>
+                <nav class="nav-links" style="margin-left: 2rem;">
+                  <a href="#" class="nav-link" data-category="All">Início</a>
+                  <a href="#" class="nav-link" data-category="movies">Filmes</a>
+                  <a href="#" class="nav-link" data-category="animes">Animes</a>
+                  <a href="#" class="nav-link" data-category="newReleases">Lançamentos</a>
+                </nav>
+              </div>
+              <div class="profile-dropdown">
+                <button id="profile-button" class="btn-ghost">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                  </svg>
+                </button>
+                <div class="dropdown-menu">
+                  <div class="dropdown-item">
+                    <span>${currentUser.name}</span>
+                  </div>
+                  <div class="dropdown-item">
+                    <a href="#" class="dropdown-link">Perfil</a>
+                  </div>
+                  <div class="dropdown-item">
+                    <a href="#" class="dropdown-link">Configurações</a>
+                  </div>
+                  <div class="dropdown-item">
+                    <a href="#" id="logout-btn" class="dropdown-link" style="color: #E50914;">Sair</a>
+                  </div>
+                </div>
+              </div>
+            </header>
+            
+            <div class="search-container">
+              <div class="search-bar">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="search-icon">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="text" id="search-input" class="search-input" placeholder="Buscar títulos, categorias...">
+              </div>
+            </div>
+            
+            <div class="categories-bar" style="display: flex; overflow-x: auto; padding: 0.5rem 1rem; background-color: var(--dark); border-bottom: 1px solid #333;">
+              <button class="category-btn active" data-category="All">Início</button>
+              <button class="category-btn" data-category="movies">Filmes</button>
+              <button class="category-btn" data-category="animes">Animes</button>
+              <button class="category-btn" data-category="newReleases">Lançamentos</button>
+              <button class="category-btn" data-category="trending">Em Alta</button>
+            </div>
+            
+            <main style="flex-grow: 1; padding: 1rem;">
+              <div id="catalog-content" class="catalog-container">
+                ${renderCatalogContent()}
+              </div>
+              
+              <div id="search-results" class="search-results hidden">
+                <h2 style="font-size: 1.5rem; margin-bottom: 1rem;">Resultados da Busca</h2>
+                <div id="results-container" class="results-grid"></div>
+              </div>
+            </main>
+            
+            <footer class="footer">
+              <div class="footer-grid">
+                <div>
+                  <h3>FilmesFlix</h3>
+                  <ul>
+                    <li><a href="#">Sobre nós</a></li>
+                    <li><a href="#">Empregos</a></li>
+                    <li><a href="#">Termos de uso</a></li>
+                    <li><a href="#">Privacidade</a></li>
+                  </ul>
+                </div>
+                <div>
+                  <h3>Ajuda</h3>
+                  <ul>
+                    <li><a href="#">Perguntas frequentes</a></li>
+                    <li><a href="#">Centro de ajuda</a></li>
+                    <li><a href="#">Conta</a></li>
+                    <li><a href="#">Contato</a></li>
+                  </ul>
+                </div>
+                <div>
+                  <h3>Siga-nos</h3>
+                  <ul>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">YouTube</a></li>
+                  </ul>
+                </div>
+              </div>
+              <div style="margin-top: 2rem; text-align: center; font-size: 0.875rem; color: #8C8C8C;">
+                &copy; ${new Date().getFullYear()} FilmesFlix. Todos os direitos reservados.
+              </div>
+            </footer>
+          </div>
+        `;
+
+            // Configurar eventos
+            setupCatalogEvents();
+        }
+
+        // Renderizar conteúdo do catálogo
+        function renderCatalogContent() {
+            if (isSearching) {
+                return '';
+            }
+
+            // Banner em destaque (apenas na página inicial ou trending)
+            const featured = getRandomFeatured();
+            let featuredBanner = '';
+
+            if (currentCategory === 'All' || currentCategory === 'trending') {
+                featuredBanner = `
+            <div class="featured-banner">
+              <img src="${featured.imageUrl}" alt="${featured.title}" class="featured-bg">
+              <div class="featured-gradient"></div>
+              <div class="featured-content">
+                <h2 style="font-size: 2rem; margin-bottom: 0.5rem;">${featured.title}</h2>
+                <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                  <span style="background-color: #E50914; color: white; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.875rem; margin-right: 0.5rem;">${featured.year}</span>
+                  <span style="color: #8C8C8C; margin-right: 0.5rem;">•</span>
+                  <span style="color: #8C8C8C;">${featured.categories.join(', ')}</span>
+                </div>
+                <p style="color: #8C8C8C; margin-bottom: 1.5rem;">
+                  Um filme incrível com uma história emocionante que vai te prender do início ao fim.
+                </p>
+                <button 
+                  class="btn btn-primary" 
+                  style="display: inline-flex; align-items: center; padding: 0.75rem 1.5rem;"
+                  data-id="${featured.id}"
+                >
+                  <svg 
+                    xmlns="http://www.w3.org/2000/svg" 
+                    width="20" 
+                    height="20" 
+                    viewBox="0 0 24 24" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    strokeWidth="2" 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round" 
+                    style="margin-right: 0.5rem;"
+                  >
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polygon points="10 8 16 12 10 16 10 8"></polygon>
+                  </svg>
+                  Assistir
+                </button>
+              </div>
+            </div>
+          `;
+            }
+
+            // Conteúdo com base na categoria
+            let content = featuredBanner;
+
+            if (currentCategory === 'All') {
+                content += renderContentSlider('Em Alta', catalog.trending);
+                content += renderContentSlider('Animes', catalog.animes);
+                content += renderContentSlider('Lançamentos', catalog.newReleases);
+                content += renderContentSlider('Filmes', catalog.movies);
+            } else if (currentCategory === 'trending') {
+                content += renderContentSlider('Em Alta', catalog.trending);
+            } else if (currentCategory === 'animes') {
+                content += renderContentSlider('Animes', catalog.animes);
+            } else if (currentCategory === 'newReleases') {
+                content += renderContentSlider('Lançamentos', catalog.newReleases);
+            } else if (currentCategory === 'movies') {
+                content += renderContentSlider('Filmes', catalog.movies);
+            }
+
+            return content;
+        }
+
+        // Renderizar um slider de conteúdo
+        function renderContentSlider(title, items) {
+            if (!items || items.length === 0) return '';
+
+            let cards = '';
+            items.forEach(item => {
+                cards += `
+            <div class="content-card" data-id="${item.id}">
+              <img src="${item.imageUrl}" alt="${item.title}" class="content-img">
+              <div class="content-info">
+                <h3 style="font-weight: bold;">${item.title}</h3>
+                <p style="font-size: 0.875rem; color: #8C8C8C;">${item.year} • ${item.categories.join(', ')}</p>
+              </div>
+            </div>
+          `;
+            });
+
+            return `
+          <section class="slider-section">
+            <h2 class="slider-title">${title}</h2>
+            <div class="slider">
+              <div class="content-items">
+                ${cards}
+              </div>
+            </div>
+          </section>
+        `;
+        }
+
+        // Renderizar resultados de busca
+        function renderSearchResults() {
+            const resultsContainer = document.getElementById('results-container');
+            if (!resultsContainer) return;
+
+            let resultsHTML = '';
+
+            if (searchResults.length === 0) {
+                resultsHTML = '<p style="color: #8C8C8C;">Nenhum resultado encontrado.</p>';
+            } else {
+                searchResults.forEach(item => {
+                    resultsHTML += `
+              <div style="margin-bottom: 1.5rem;">
+                <img 
+                  src="${item.imageUrl}" 
+                  alt="${item.title}" 
+                  style="width: 100%; height: 250px; object-fit: cover; border-radius: 4px; cursor: pointer;"
+                  data-id="${item.id}"
+                >
+                <h3 style="margin-top: 0.5rem; font-weight: bold;">${item.title}</h3>
+                <p style="font-size: 0.875rem; color: #8C8C8C;">${item.year} • ${item.categories.join(', ')}</p>
+              </div>
+            `;
+                });
+            }
+
+            resultsContainer.innerHTML = resultsHTML;
+
+            // Adicionar eventos aos resultados
+            const resultItems = resultsContainer.querySelectorAll('img');
+            resultItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const id = parseInt(item.getAttribute('data-id'));
+                    const content = searchResults.find(c => c.id === id);
+                    if (content) {
+                        playContent(content);
+                    }
+                });
+            });
+        }
+
+        // Configurar eventos da página de catálogo
+        function setupCatalogEvents() {
+            // Logout
+            const logoutBtn = document.getElementById('logout-btn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    logoutUser();
+                    renderApp();
+                });
+            }
+
+            // Navegação por categorias
+            const categoryButtons = document.querySelectorAll('.category-btn');
+            categoryButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Atualizar UI
+                    categoryButtons.forEach(b => b.classList.remove('active'));
+                    button.classList.add('active');
+
+                    // Mudar categoria e renderizar
+                    currentCategory = button.getAttribute('data-category');
+                    isSearching = false;
+
+                    document.getElementById('catalog-content').innerHTML = renderCatalogContent();
+                    document.getElementById('catalog-content').classList.remove('hidden');
+                    document.getElementById('search-results').classList.add('hidden');
+
+                    // Reconfigurar eventos para o novo conteúdo
+                    setupContentEvents();
+                });
+            });
+
+            // Links de navegação no header
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const category = link.getAttribute('data-category');
+
+                    // Atualizar botões de categoria
+                    categoryButtons.forEach(b => {
+                        if (b.getAttribute('data-category') === category) {
+                            b.classList.add('active');
+                        } else {
+                            b.classList.remove('active');
+                        }
+                    });
+
+                    // Mudar categoria e renderizar
+                    currentCategory = category;
+                    isSearching = false;
+
+                    document.getElementById('catalog-content').innerHTML = renderCatalogContent();
+                    document.getElementById('catalog-content').classList.remove('hidden');
+                    document.getElementById('search-results').classList.add('hidden');
+
+                    // Reconfigurar eventos para o novo conteúdo
+                    setupContentEvents();
+                });
+            });
+
+            // Busca
+            const searchInput = document.getElementById('search-input');
+            if (searchInput) {
+                searchInput.addEventListener('input', (e) => {
+                    const term = e.target.value.trim();
+
+                    if (term.length >= 3) {
+                        searchResults = searchContent(term);
+                        isSearching = true;
+
+                        document.getElementById('catalog-content').classList.add('hidden');
+                        document.getElementById('search-results').classList.remove('hidden');
+
+                        renderSearchResults();
+                    } else if (term.length === 0) {
+                        isSearching = false;
+
+                        document.getElementById('catalog-content').classList.remove('hidden');
+                        document.getElementById('search-results').classList.add('hidden');
+                    }
+                });
+            }
+
+            // Configurar eventos para cards de conteúdo
+            setupContentEvents();
+        }
+
+        // Configurar eventos para cards de conteúdo
+        function setupContentEvents() {
+            // Botão assistir do banner
+            const watchButtons = document.querySelectorAll('.featured-content .btn-primary');
+            watchButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const id = parseInt(button.getAttribute('data-id'));
+
+                    // Encontrar o item pelo ID
+                    let content = null;
+                    for (const category in catalog) {
+                        const found = catalog[category].find(item => item.id === id);
+                        if (found) {
+                            content = found;
+                            break;
+                        }
+                    }
+
+                    if (content) {
+                        playContent(content);
+                    }
+                });
+            });
+
+            // Cards de conteúdo
+            const contentCards = document.querySelectorAll('.content-card');
+            contentCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const id = parseInt(card.getAttribute('data-id'));
+
+                    // Encontrar o item pelo ID
+                    let content = null;
+                    for (const category in catalog) {
+                        const found = catalog[category].find(item => item.id === id);
+                        if (found) {
+                            content = found;
+                            break;
+                        }
+                    }
+
+                    if (content) {
+                        playContent(content);
+                    }
+                });
+            });
+        }
+
+        // Função para "reproduzir" conteúdo (simulação)
+        function playContent(content) {
+            alert(`Em uma versão completa, isso iniciaria a reprodução de "${content.title}"`);
+        }
+
+        // Inicialização
+        function init() {
+            // Verificar localStorage para usuários e usuário atual
+            initUsers();
+            currentUser = getCurrentUser();
+
+            // Renderizar aplicação
+            renderApp();
+        }
+
+        // Iniciar aplicação quando o DOM estiver carregado
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
